@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Password Security Scanner</h1>
+    <p>Enter a password to check its strength (type 'admin' for admin login, 'done' to end).</p>
+    
+    <form method="POST">
+        <input type="text" name="password" placeholder="Enter password" required>
+        <button type="submit">Scan</button>
+    </form>
+    
+    {% if result %}
+        <h2>Result:</h2>
+        {% if result == "Session ended." %}
+            <p>{{ result }}</p>
+        {% else %}
+            <p>Password: {{ result.password }}</p>
+            <p>Strength Score: {{ result.score }}/8</p>
+            {% if result.feedback %}
+                <p>Feedback:</p>
+                <ul>
+                    {% for fb in result.feedback %}
+                        <li>{{ fb }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if result.new_password %}
+                <p>Recommended New Password: {{ result.new_password }}</p>
+            {% else %}
+                <p>This password is strong enough!</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</body>
+</html>
