@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Backlog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Password Backlog</h1>
+    {% if passwords %}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Password</th>
+                <th>Timestamp</th>
+            </tr>
+            {% for pwd in passwords %}
+                <tr>
+                    <td>{{ pwd[0] }}</td>
+                    <td>{{ pwd[1] }}</td>
+                    <td>{{ pwd[2] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No passwords in the backlog yet.</p>
+    {% endif %}
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+</body>
+</html>
